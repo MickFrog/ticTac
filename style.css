@@ -3,6 +3,9 @@
 :root {
     --bg-color: #8D86C9;
     --text-color: #312F2F;
+    --btn-bg-color: #F0F7EE;
+    --humanBtn-hover-col: #ACECF7;
+    --botBtn-hover-col: #F4989C;
 }
 
 * {
@@ -47,7 +50,7 @@
 .optionBtns > button {
     width: max(30%, 6rem);
     height: max(70%, 6rem);
-    background-color: #F0F7EE;
+    background-color: var(--btn-bg-color);
     border: 0px;
     border-radius: 5px;
 
@@ -64,9 +67,9 @@
 }
 
 #humanBtn:hover {
-    background-color: #ACECF7;
+    background-color: var(--humanBtn-hover-col);
 }
 
 #botBtn:hover {
-    background-color: #F4989C;
+    background-color: var(--botBtn-hover-col);
 }
