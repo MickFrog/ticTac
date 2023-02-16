@@ -46,3 +46,12 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+.optionBtns > button {
+    width: max(30%, 6rem);
+    height: max(70%, 6rem);
+}
+
+#humanBtn {
+    margin-right: 1rem;
+}
