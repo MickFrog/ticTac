@@ -7,9 +7,6 @@
 
 * {
     box-sizing: border-box;
-}
-
-body {
     margin: 0px;
 }
 
@@ -50,8 +47,18 @@ body {
 .optionBtns > button {
     width: max(30%, 6rem);
     height: max(70%, 6rem);
+    background-color: #F0F7EE;
+    border: 0px;
+    border-radius: 5px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: inherit;
+    font-size: 1.2rem;
 }
 
 #humanBtn {
-    margin-right: 1rem;
+    margin-right: 20%;
 }
