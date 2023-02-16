@@ -83,6 +83,12 @@
 .gameBoard {
     display: grid;
     grid-template: repeat(3, 1fr) / repeat(3, 1fr);
-    width: max(27rem, 30%);
+    width: max(27rem, 25%);
     height: 70%;
+    gap: .5rem
+}
+
+.gameCard {
+    background-color: var(--text-color);
+    border-radius: 3px;
 }
