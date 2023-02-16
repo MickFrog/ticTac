@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Yuji+Syuku&display=swap');
+
+:root {
+    --bg-color: #8D86C9;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -10,4 +16,7 @@ body {
     min-height: 100vh;
     display: grid;
     grid-template-rows: 1fr 2fr 5fr;
+    font-family: 'Yuji Syuku', serif;
+
+    background-color: var(--bg-color);
 }
