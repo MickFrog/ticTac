@@ -73,3 +73,16 @@
 #botBtn:hover {
     background-color: var(--botBtn-hover-col);
 }
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gameBoard {
+    display: grid;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+    width: max(27rem, 30%);
+    height: 70%;
+}
