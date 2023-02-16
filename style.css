@@ -2,6 +2,7 @@
 
 :root {
     --bg-color: #8D86C9;
+    --text-color: #312F2F;
 }
 
 * {
@@ -19,4 +20,14 @@ body {
     font-family: 'Yuji Syuku', serif;
 
     background-color: var(--bg-color);
+}
+
+.header {
+    font-size: 4rem;
+    font-weight: 800;
+    letter-spacing: 1rem;
+    display: flex;
+    justify-content: center;
+    color: var(--text-color);
+    text-shadow: 0px 0px 6px #f0f7ee;
 }
