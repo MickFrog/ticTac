@@ -92,3 +92,17 @@
     background-color: var(--text-color);
     border-radius: 3px;
 }
+
+.X-card {
+    background-image: url(./images/x.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 50%;
+}
+
+.O-card {
+    background-image: url(./images/o.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 50%;
+}
