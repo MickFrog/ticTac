@@ -1,5 +1,7 @@
 //Acquire elements
 const gameCards = [...document.querySelectorAll('.gameCard')];
+const humanBtn = document.getElementById('humanBtn');
+const robotBtn = document.getElementById('botBtn');
 
 //Event listeners
 function initialiseGameCards() {
@@ -9,6 +11,18 @@ function initialiseGameCards() {
         });
     }
 }
+
+humanBtn.addEventListener('click', ()=> {
+    humanBtn.className = 'clicked';
+    robotBtn.className = '';
+
+});
+
+robotBtn.addEventListener('click', ()=> {
+    robotBtn.className = 'clicked';
+    humanBtn.className = '';
+
+});
 
 //Driver code
 initialiseGameCards();
