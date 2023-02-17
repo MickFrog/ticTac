@@ -70,7 +70,15 @@
     background-color: var(--humanBtn-hover-col);
 }
 
+#humanBtn.clicked{
+    background-color: var(--humanBtn-hover-col);
+}
+
 #botBtn:hover {
+    background-color: var(--botBtn-hover-col);
+}
+
+#botBtn.clicked {
     background-color: var(--botBtn-hover-col);
 }
 
