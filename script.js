@@ -3,6 +3,21 @@ const humanBtn = document.getElementById('humanBtn');
 const robotBtn = document.getElementById('botBtn');
 
 //Event listeners
+humanBtn.addEventListener('click', ()=> {
+    humanBtn.className = 'clicked';
+    robotBtn.className = '';
+
+    initialiseGameCards();
+});
+
+robotBtn.addEventListener('click', ()=> {
+    robotBtn.className = 'clicked';
+    humanBtn.className = '';
+
+    initialiseGameCards();
+});
+
+//functions
 function initialiseGameCards() {
     //clear gameBoard
     const gameBoard = document.querySelector('.gameBoard');
@@ -11,6 +26,7 @@ function initialiseGameCards() {
         gameBoard.removeChild(gameBoard.firstChild);
     }
 
+    //draw gameBoard
     for (let i = 0; i < 9; i++) {
         gameBoard.appendChild(createCard());
     }
@@ -26,17 +42,3 @@ function createCard() {
 
     return card;
 }
-
-humanBtn.addEventListener('click', ()=> {
-    humanBtn.className = 'clicked';
-    robotBtn.className = '';
-
-    initialiseGameCards();
-});
-
-robotBtn.addEventListener('click', ()=> {
-    robotBtn.className = 'clicked';
-    humanBtn.className = '';
-
-    initialiseGameCards();
-});
