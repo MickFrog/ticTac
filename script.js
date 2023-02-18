@@ -1,5 +1,6 @@
 //Global variables
 let currPlayer = null;
+let boardArray = [];
 
 //Acquire elements
 const humanBtn = document.getElementById('humanBtn');
@@ -45,6 +46,7 @@ function initialiseGameCards() {
         gameBoard.appendChild(createCard());
     }
 
+    boardArray = [...gameBoard.childNodes];
     printMessage();
 }
 
@@ -54,6 +56,7 @@ function createCard() {
 
     card.addEventListener('click', ()=> { //show current player's name on card
         card.classList.add(`${currPlayer.name}-card`);
+        card.id = currPlayer.name;
         switchPlayer();
     });
 
