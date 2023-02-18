@@ -4,6 +4,7 @@ let currPlayer = null;
 //Acquire elements
 const humanBtn = document.getElementById('humanBtn');
 const robotBtn = document.getElementById('botBtn');
+const msg = document.getElementById('msg');
 
 //Event listeners
 humanBtn.addEventListener('click', ()=> {
@@ -43,6 +44,8 @@ function initialiseGameCards() {
     for (let i = 0; i < 9; i++) {
         gameBoard.appendChild(createCard());
     }
+
+    printMessage();
 }
 
 function createCard() {
@@ -55,6 +58,10 @@ function createCard() {
     });
 
     return card;
+}
+
+function printMessage() {
+    msg.textContent = `Player ${currPlayer.name}'s turn.`
 }
 
 const Player = (name) => {
@@ -70,9 +77,11 @@ const Player = (name) => {
 function switchPlayer() { //Switch Players by changing name
     if (currPlayer.name == 'X') {
         currPlayer.name = 'O';
+        printMessage();
         return;
     } 
     currPlayer.name = 'X';
+    printMessage();
 }
 
 //Driver code
