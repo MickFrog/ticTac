@@ -48,7 +48,7 @@ function initialiseGameCards() {
     }
 
     boardArray = [...gameBoard.childNodes];
-    printMessage();
+    printMessage(`Player ${currPlayer.name}'s turn.`);
 }
 
 function createCard() {
@@ -69,8 +69,8 @@ function createCard() {
     return card;
 }
 
-function printMessage() {
-    msg.textContent = `Player ${currPlayer.name}'s turn.`
+function printMessage(message) {
+    msg.textContent = message;
 }
 
 const Player = (name) => {
@@ -108,11 +108,11 @@ const Player = (name) => {
 function switchPlayer() { //Switch Players by changing name
     if (currPlayer.name == 'X') {
         currPlayer.name = 'O';
-        printMessage();
+        printMessage(`Player ${currPlayer.name}'s turn.`);
         return;
     } 
     currPlayer.name = 'X';
-    printMessage();
+    printMessage(`Player ${currPlayer.name}'s turn.`);
 }
 
 //Driver code
