@@ -67,8 +67,8 @@ function createCard() {
         card.classList.add(`${currPlayer.name}-card`);
         card.setAttribute('data-symbol', currPlayer.name); //set custom attribute for card owner ie X or O.
 
-        if (currPlayer.checkWinCondition()) return;
-        switchPlayer();
+        if (currPlayer.checkWinCondition()) return; //prevent further play when game is won
+        currPlayer.switchPlayer();
     });
 
     return card;
@@ -78,11 +78,23 @@ function printMessage(message) {
     msg.textContent = message;
 }
 
-const Player = (name) => {
-    this.name = name;
+const Player = (playerName) => {
+    let name = playerName;
 
-    this.checkWinCondition = () => {
-        // console.log(boardArray);
+    let switchPlayer = () => { //Switch Players by changing name
+        console.log(name);
+        if (name == 'X') {
+            name = 'O';
+            printMessage(`Player ${name}'s turn.`);
+        console.log(name);
+            return;
+        } 
+        name = 'X';
+        printMessage(`Player ${name}'s turn.`);
+        console.log(name);
+    }
+
+    const checkWinCondition = () => {
         let combinations = [
             [0, 1, 2], 
             [3, 4, 5], 
@@ -95,12 +107,12 @@ const Player = (name) => {
         ]
     
         for(let i = 0; i < combinations.length; i++) {
-            if(boardArray[combinations[i][0]].dataset.symbol == boardArray[combinations[i][1]].dataset.symbol && 
-                boardArray[combinations[i][2]].dataset.symbol == this.name) 
+            if(boardArray[combinations[i][0]].dataset.symbol == name &&
+                boardArray[combinations[i][1]].dataset.symbol == name && 
+                boardArray[combinations[i][2]].dataset.symbol == name) 
             {
-                // console.log(this.name + ' wins');
                 gameWon = true;
-                printMessage(`Player ${this.name} wins the game!.`);
+                printMessage(`Player ${name} wins the game!.`);
                 return true;
             }
         }
@@ -108,19 +120,5 @@ const Player = (name) => {
         return false;
     };
 
-    return {name, checkWinCondition};
+    return {name, switchPlayer, checkWinCondition};
 };
-
-function switchPlayer() { //Switch Players by changing name
-    if (currPlayer.name == 'X') {
-        currPlayer.name = 'O';
-        printMessage(`Player ${currPlayer.name}'s turn.`);
-        return;
-    } 
-    currPlayer.name = 'X';
-    printMessage(`Player ${currPlayer.name}'s turn.`);
-}
-
-//Driver code
-let newPlayer = Player('X');
-currPlayer = newPlayer;
