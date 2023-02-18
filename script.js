@@ -1,6 +1,7 @@
 //Global variables
 let currPlayer = null;
 let boardArray = [];
+let gameWon = false;
 
 //Acquire elements
 const humanBtn = document.getElementById('humanBtn');
@@ -55,6 +56,9 @@ function createCard() {
     card.classList.add('gameCard');
 
     card.addEventListener('click', ()=> { //show current player's name on card
+        if (gameWon == true) { //prevent further play when game is won
+            return;
+        }
         card.classList.add(`${currPlayer.name}-card`);
         card.setAttribute('data-symbol', currPlayer.name); //set custom attribute for card owner ie X or O.
 
@@ -90,6 +94,7 @@ const Player = (name) => {
                 boardArray[combinations[i][2]].dataset.symbol == this.name) 
             {
                 console.log(this.name + ' wins');
+                gameWon = true;
                 return true;
             }
         }
