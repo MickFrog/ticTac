@@ -59,8 +59,10 @@ function createCard() {
     const card = document.createElement('div');
     card.classList.add('gameCard');
 
-    card.addEventListener('click', ()=> { //show current player's name on card
+    card.addEventListener('click', (event)=> { //show current player's name on card
         if (gameWon == true) return; //prevent further play when game is won
+
+        if (event.target.dataset.symbol) return; //prevent changing already played card
             
         card.classList.add(`${currPlayer.name}-card`);
         card.setAttribute('data-symbol', currPlayer.name); //set custom attribute for card owner ie X or O.
