@@ -7,6 +7,11 @@ const robotBtn = document.getElementById('botBtn');
 
 //Event listeners
 humanBtn.addEventListener('click', ()=> {
+    //if board already displayed for this option then do nothing
+    if (humanBtn.className == 'clicked') {
+        return;
+    }
+    
     humanBtn.className = 'clicked';
     robotBtn.className = '';
 
@@ -14,6 +19,11 @@ humanBtn.addEventListener('click', ()=> {
 });
 
 robotBtn.addEventListener('click', ()=> {
+    //if board already displayed for this option then do nothing
+    if (robotBtn.className == 'clicked') {
+        return;
+    }
+
     robotBtn.className = 'clicked';
     humanBtn.className = '';
 
