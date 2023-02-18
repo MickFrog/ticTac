@@ -56,13 +56,12 @@ function createCard() {
     card.classList.add('gameCard');
 
     card.addEventListener('click', ()=> { //show current player's name on card
-        if (gameWon == true) { //prevent further play when game is won
-            return;
-        }
+        if (gameWon == true) return; //prevent further play when game is won
+            
         card.classList.add(`${currPlayer.name}-card`);
         card.setAttribute('data-symbol', currPlayer.name); //set custom attribute for card owner ie X or O.
 
-        currPlayer.checkWinCondition();
+        if (currPlayer.checkWinCondition()) return;
         switchPlayer();
     });
 
@@ -93,8 +92,9 @@ const Player = (name) => {
             if(boardArray[combinations[i][0]].dataset.symbol == boardArray[combinations[i][1]].dataset.symbol && 
                 boardArray[combinations[i][2]].dataset.symbol == this.name) 
             {
-                console.log(this.name + ' wins');
+                // console.log(this.name + ' wins');
                 gameWon = true;
+                printMessage(`Player ${this.name} wins the game!.`);
                 return true;
             }
         }
