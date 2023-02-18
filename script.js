@@ -48,6 +48,10 @@ function initialiseGameCards() {
     }
 
     boardArray = [...gameBoard.childNodes];
+
+    //initialise game variables
+    gameWon = false;
+    currPlayer = Player('X');
     printMessage(`Player ${currPlayer.name}'s turn.`);
 }
 
