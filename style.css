@@ -6,6 +6,7 @@
     --btn-bg-color: #F0F7EE;
     --humanBtn-hover-col: #ACECF7;
     --botBtn-hover-col: #F4989C;
+    --base-fontSize: 2rem;
 }
 
 * {
@@ -23,7 +24,7 @@
 }
 
 .header {
-    font-size: 4rem;
+    font-size: calc(var(--base-fontSize) * 2);
     font-weight: 800;
     letter-spacing: 1rem;
     display: flex;
@@ -38,7 +39,7 @@
     display: grid;
     grid-template-rows: 1fr 2fr;
     justify-content: center;
-    font-size: 2rem;
+    font-size: var(--base-fontSize);
 }
 
 .options > div {
@@ -59,7 +60,7 @@
     align-items: center;
 
     font-family: inherit;
-    font-size: 1.5rem;
+    font-size: calc(var(--base-fontSize) - 0.5rem);
 }
 
 #humanBtn {
@@ -84,6 +85,7 @@
 
 .content {
     display: flex;
+    flex-flow: column wrap;
     justify-content: center;
     align-items: center;
 }
@@ -113,6 +115,10 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: 50%;
+}
+
+#msg {
+    font-size: calc(var(--base-fontSize) + 1rem);
 }
 
 .credit > a {
