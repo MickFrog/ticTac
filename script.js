@@ -82,17 +82,14 @@ const Player = (playerName) => {
     let name = playerName;
 
     let switchPlayer = () => { //Switch Players by changing name
-        console.log(name);
         if (name == 'X') {
             name = 'O';
             printMessage(`Player ${name}'s turn.`);
-        console.log(name);
             return;
         } 
         name = 'X';
         printMessage(`Player ${name}'s turn.`);
-        console.log(name);
-    }
+    };
 
     const checkWinCondition = () => {
         let combinations = [
@@ -115,10 +112,17 @@ const Player = (playerName) => {
                 printMessage(`Player ${name} wins the game!.`);
                 return true;
             }
-        }
+        };
 
         return false;
     };
 
-    return {name, switchPlayer, checkWinCondition};
+    return {name, switchPlayer, checkWinCondition, 
+        // To enable access of object variables instead of this function's closure variable.
+        set name(val) {
+            name = val;
+        }, 
+        get name() {
+            return name;
+        }};
 };
