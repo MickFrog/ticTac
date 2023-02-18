@@ -81,6 +81,17 @@ function printMessage(message) {
 const Player = (playerName) => {
     let name = playerName;
 
+    let combinations = [ //all win conditions
+        [0, 1, 2], 
+        [3, 4, 5], 
+        [6, 7, 8], 
+        [0, 3, 6], 
+        [1, 4, 7], 
+        [2, 5, 8], 
+        [0, 4, 8], 
+        [2, 4, 6]
+    ]
+
     let switchPlayer = () => { //Switch Players by changing name
         if (name == 'X') {
             name = 'O';
@@ -92,17 +103,6 @@ const Player = (playerName) => {
     };
 
     const checkWinCondition = () => {
-        let combinations = [
-            [0, 1, 2], 
-            [3, 4, 5], 
-            [6, 7, 8], 
-            [0, 3, 6], 
-            [1, 4, 7], 
-            [2, 5, 8], 
-            [0, 4, 8], 
-            [2, 4, 6]
-        ]
-    
         for(let i = 0; i < combinations.length; i++) {
             if(boardArray[combinations[i][0]].dataset.symbol == name &&
                 boardArray[combinations[i][1]].dataset.symbol == name && 
