@@ -56,7 +56,9 @@ function createCard() {
 
     card.addEventListener('click', ()=> { //show current player's name on card
         card.classList.add(`${currPlayer.name}-card`);
-        card.id = currPlayer.name;
+        card.setAttribute('data-symbol', currPlayer.name); //set custom attribute for card owner ie X or O.
+
+        currPlayer.checkWinCondition();
         switchPlayer();
     });
 
@@ -71,7 +73,28 @@ const Player = (name) => {
     this.name = name;
 
     this.checkWinCondition = () => {
+        // console.log(boardArray);
+        let combinations = [
+            [0, 1, 2], 
+            [3, 4, 5], 
+            [6, 7, 8], 
+            [0, 3, 6], 
+            [1, 4, 7], 
+            [2, 5, 8], 
+            [0, 4, 8], 
+            [2, 4, 6]
+        ]
+    
+        for(let i = 0; i < combinations.length; i++) {
+            if(boardArray[combinations[i][0]].dataset.symbol == boardArray[combinations[i][1]].dataset.symbol && 
+                boardArray[combinations[i][2]].dataset.symbol == this.name) 
+            {
+                console.log(this.name + ' wins');
+                return true;
+            }
+        }
 
+        return false;
     };
 
     return {name, checkWinCondition};
