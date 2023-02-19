@@ -84,7 +84,7 @@ function printMessage(message) {
 }
 
 function createRestartBtn() {
-    if (gameBoard.nextElementSibling != null) {
+    if (gameBoard.nextElementSibling != null) { //prevent adding restart btn if already exists
         if (gameBoard.nextElementSibling.id == 'restartBtn') return;
     }
 
@@ -93,6 +93,10 @@ function createRestartBtn() {
     let RestartBtn = document.createElement('button');
     RestartBtn.id = 'restartBtn';
     RestartBtn.textContent = 'Restart';
+
+    RestartBtn.addEventListener('click', () => {
+        initialiseGameCards();
+    });
 
     contentSect.appendChild(RestartBtn);
 }
