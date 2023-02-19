@@ -48,7 +48,7 @@
     align-items: center;
 }
 
-.optionBtns > button {
+.optionBtns > button, #restartBtn {
     width: max(30%, 6rem);
     height: max(70%, 6rem);
     background-color: var(--btn-bg-color);
@@ -120,6 +120,11 @@
 #msg {
     font-size: calc(var(--base-fontSize) + 1rem);
     margin-bottom: 1rem;
+}
+
+#restartBtn {
+    height: 10%;
+    margin-top: 1%;
 }
 
 .credit > a {
