@@ -127,6 +127,10 @@
     margin-top: 1%;
 }
 
+#restartBtn:hover {
+    background-color: #E1DD8F;
+}
+
 .credit > a {
     /* text-decoration: none; */
     color: inherit;
