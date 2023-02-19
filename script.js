@@ -2,6 +2,7 @@
 let currPlayer = null;
 let boardArray = [];
 let gameWon = false;
+let round = 0;
 
 //Acquire elements
 const humanBtn = document.getElementById('humanBtn');
@@ -51,6 +52,7 @@ function initialiseGameCards() {
 
     //initialise game variables
     gameWon = false;
+    round = 0;
     currPlayer = Player('X');
     printMessage(`Player ${currPlayer.name}'s turn.`);
 }
@@ -67,6 +69,7 @@ function createCard() {
         card.classList.add(`${currPlayer.name}-card`);
         card.setAttribute('data-symbol', currPlayer.name); //set custom attribute for card owner ie X or O.
 
+        round++;
         if (currPlayer.checkWinCondition()) return; //prevent further play when game is won
         currPlayer.switchPlayer();
     });
@@ -113,6 +116,12 @@ const Player = (playerName) => {
                 return true;
             }
         };
+
+        if (round == 9) {
+            gameWon = true;
+            printMessage(`Game is a draw!`);
+            return true;
+        }
 
         return false;
     };
