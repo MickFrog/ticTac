@@ -7,6 +7,7 @@ let round = 0;
 //Acquire elements
 const humanBtn = document.getElementById('humanBtn');
 const robotBtn = document.getElementById('botBtn');
+const gameBoard = document.querySelector('.gameBoard');
 const msg = document.getElementById('msg');
 
 //Event listeners
@@ -37,8 +38,6 @@ robotBtn.addEventListener('click', ()=> {
 //functions
 function initialiseGameCards() {
     //clear gameBoard
-    const gameBoard = document.querySelector('.gameBoard');
-    
     while(gameBoard.firstChild) {
         gameBoard.removeChild(gameBoard.firstChild);
     }
@@ -47,6 +46,9 @@ function initialiseGameCards() {
     for (let i = 0; i < 9; i++) {
         gameBoard.appendChild(createCard());
     }
+
+    //Add restart button
+    createRestartBtn();
 
     boardArray = [...gameBoard.childNodes];
 
@@ -81,6 +83,21 @@ function printMessage(message) {
     msg.textContent = message;
 }
 
+function createRestartBtn() {
+    if (gameBoard.nextElementSibling != null) {
+        if (gameBoard.nextElementSibling.id == 'restartBtn') return;
+    }
+
+    const contentSect = document.querySelector('.content');
+
+    let RestartBtn = document.createElement('button');
+    RestartBtn.id = 'restartBtn';
+    RestartBtn.textContent = 'Restart';
+
+    contentSect.appendChild(RestartBtn);
+}
+
+//Factories
 const Player = (playerName) => {
     let name = playerName;
 
