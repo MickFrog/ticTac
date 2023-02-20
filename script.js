@@ -207,4 +207,28 @@ function minimax(tempPlayer) { //board used is global
         //add move to allMoves
         allMoves.push(move);
     }
+
+    //evaluate bestmove; by getting actual card in page
+    let bestCard;
+
+    if (tempPlayer.name == 'O') {
+        let bestScore = -10000;
+        for (let i = 0; i < allMoves.length; i++) {
+            if (allMoves[i].score > bestScore) {
+                bestScore = allMoves[i].score;
+                bestCard = allMoves[i].card; 
+            }
+        }
+
+    } else { //when player is human
+        let bestScore = 10000;
+        for (let i = 0; i < allMoves.length; i++) {
+            if (allMoves[i].score < bestScore) {
+                bestScore = allMoves[i].score;
+                bestCard = allMoves[i].card; 
+            }
+        }
+    }
+
+    return bestCard;
 }
