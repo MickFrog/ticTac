@@ -83,7 +83,10 @@ function createCard() {
         card.setAttribute('data-symbol', currPlayer.name); //set custom attribute for card owner ie X or O.
 
         round++;
-        if (currPlayer.checkWinCondition() != -1) return; //prevent further play when game is won
+        if (currPlayer.checkWinCondition() != -1) { //prevent further play when game is won
+            declareWinner(currPlayer.checkWinCondition());
+            return;
+        }
         currPlayer.switchPlayer();
     });
 
@@ -110,6 +113,17 @@ function createRestartBtn() {
     });
 
     contentSect.appendChild(RestartBtn);
+}
+
+function declareWinner(checkWinResult) {
+    if (checkWinResult == 1) {
+        gameWon = 1;
+        printMessage(`Player ${currPlayer.name} wins the game!.`);
+
+    } else if (checkWinResult == 0) {
+        gameWon = 0;
+        printMessage(`Game is a draw!`);
+    }
 }
 
 //Factories
@@ -143,15 +157,11 @@ const Player = (playerName) => {
                 boardArray[combinations[i][1]].dataset.symbol == name && 
                 boardArray[combinations[i][2]].dataset.symbol == name) 
             {
-                gameWon = 1;
-                printMessage(`Player ${name} wins the game!.`);
                 return 1;
             }
         };
 
         if (round == 9) {
-            gameWon = 0;
-            printMessage(`Game is a draw!`);
             return 0;
         }
 
@@ -183,7 +193,7 @@ function minimax(tempPlayer) { //board used is global
     let allMoves = []; //collect all move Objs
 
     for (let i = 0; i < availSpots.length; i++) {
-        let move;
+        let move = {};
 
         move.card = availSpots[i]; //ref to div in the page
 
