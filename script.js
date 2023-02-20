@@ -36,6 +36,17 @@ robotBtn.addEventListener('click', ()=> {
 });
 
 //functions
+function getLegalMoves() {
+    let legals = [];
+    for (let i = 0; i < boardArray.length; i++) {
+        if(!boardArray[i].dataset.symbol) {
+            legals.push(boardArray[i]);
+        }
+    }
+
+    return legals;
+}
+
 function initialiseGameCards() {
     //clear gameBoard
     while(gameBoard.firstChild) {
