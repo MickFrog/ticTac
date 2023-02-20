@@ -1,7 +1,7 @@
 //Global variables
 let currPlayer = null;
 let boardArray = [];
-let gameWon = false;
+let gameWon = -1;
 let round = 0;
 
 //Acquire elements
@@ -64,7 +64,7 @@ function initialiseGameCards() {
     boardArray = [...gameBoard.childNodes];
 
     //initialise game variables
-    gameWon = false;
+    gameWon = -1;
     round = 0;
     currPlayer = Player('X');
     printMessage(`Player ${currPlayer.name}'s turn.`);
@@ -75,7 +75,7 @@ function createCard() {
     card.classList.add('gameCard');
 
     card.addEventListener('click', (event)=> { //show current player's name on card
-        if (gameWon == true) return; //prevent further play when game is won
+        if (gameWon != -1) return; //prevent further play when game is won or drew
 
         if (event.target.dataset.symbol) return; //prevent changing already played card
             
@@ -83,7 +83,7 @@ function createCard() {
         card.setAttribute('data-symbol', currPlayer.name); //set custom attribute for card owner ie X or O.
 
         round++;
-        if (currPlayer.checkWinCondition()) return; //prevent further play when game is won
+        if (currPlayer.checkWinCondition() != -1) return; //prevent further play when game is won
         currPlayer.switchPlayer();
     });
 
@@ -143,19 +143,19 @@ const Player = (playerName) => {
                 boardArray[combinations[i][1]].dataset.symbol == name && 
                 boardArray[combinations[i][2]].dataset.symbol == name) 
             {
-                gameWon = true;
+                gameWon = 1;
                 printMessage(`Player ${name} wins the game!.`);
-                return true;
+                return 1;
             }
         };
 
         if (round == 9) {
-            gameWon = true;
+            gameWon = 0;
             printMessage(`Game is a draw!`);
-            return true;
+            return 0;
         }
 
-        return false;
+        return -1;
     };
 
     return {name, switchPlayer, checkWinCondition, 
