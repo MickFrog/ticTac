@@ -167,3 +167,44 @@ const Player = (playerName) => {
             return name;
         }};
 };
+
+function minimax(tempPlayer) { //board used is global 
+    let availSpots = getLegalMoves();
+
+    //check for terminal states
+    if (tempPlayer.name == 'X' && tempPlayer.checkWinCondition() == 1) {
+        return {score: -1};
+    } else if (tempPlayer.name == 'O' && tempPlayer.checkWinCondition() == 1) {
+        return {score: 1};
+    } else if (availSpots.length == 0) {
+        return {score: 0};
+    }
+    
+    let allMoves = []; //collect all move Objs
+
+    for (let i = 0; i < availSpots.length; i++) {
+        let move;
+
+        move.card = availSpots[i]; //ref to div in the page
+
+        availSpots[i].dataset.symbol = tempPlayer.name; //set curr spot to taken by temp player
+
+        //keep switching tempPlayer and recall minimax
+        if (tempPlayer.name == 'O') { //ai player
+            tempPlayer.name = 'X'; 
+            let result = minimax(tempPlayer);
+            move.score = result;
+
+        } else {
+            tempPlayer.name = 'O';
+            let result = minimax(tempPlayer);
+            move.score = result;
+        }
+
+        //reset the symbol data attr to nothing
+        delete availSpots[i].dataset.symbol;
+        
+        //add move to allMoves
+        allMoves.push(move);
+    }
+}
