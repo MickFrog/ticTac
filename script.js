@@ -4,6 +4,7 @@ let boardArray = [];
 let gameWon = -1;
 let round = 0;
 let Mode = '';
+let aiThinking = false;
 
 //Acquire elements
 const humanBtn = document.getElementById('humanBtn');
@@ -108,8 +109,8 @@ function createCardAI() {
 
     card.addEventListener('click', (event)=> { //show current player's name on card
         if (gameWon != -1) return; //prevent further play when game is won or drew
-
         if (event.target.dataset.symbol) return; //prevent changing already played card
+        if (aiThinking == true) return;
             
         card.classList.add(`${currPlayer.name}-card`);
         card.setAttribute('data-symbol', currPlayer.name); //set custom attribute for card owner ie X or O.
@@ -120,8 +121,10 @@ function createCardAI() {
             return;
         }
 
+        currPlayer.switchPlayer();
         
         (async () => {
+            aiThinking = true;
             await sleep(500 + (Math.random() * 500));
             //get best card for ai
             let chosenMove = minimax(currPlayer, 0);
@@ -135,9 +138,9 @@ function createCardAI() {
                 return;
             }
             currPlayer.switchPlayer();
+            aiThinking = false;
         })();
         
-        currPlayer.switchPlayer();
         
     });
 
