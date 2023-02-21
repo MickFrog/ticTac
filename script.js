@@ -7,37 +7,39 @@ let Mode = '';
 let aiThinking = false;
 
 //Acquire elements
-const humanBtn = document.getElementById('humanBtn');
-const robotBtn = document.getElementById('botBtn');
 const gameBoard = document.querySelector('.gameBoard');
 const msg = document.getElementById('msg');
 
-//Event listeners
-humanBtn.addEventListener('click', ()=> {
-    //if board already displayed for this option then do nothing
-    if (humanBtn.className == 'clicked') {
-        return;
-    }
+const listeners = (() => { //Event listeners
+    const humanBtn = document.getElementById('humanBtn');
+    const robotBtn = document.getElementById('botBtn');
+
+    humanBtn.addEventListener('click', ()=> {
+        //if board already displayed for this option then do nothing
+        if (humanBtn.className == 'clicked') {
+            return;
+        }
+        
+        humanBtn.className = 'clicked';
+        robotBtn.className = '';
     
-    humanBtn.className = 'clicked';
-    robotBtn.className = '';
-
-    Mode = 'human';
-    initialiseGameCards(Mode);
-});
-
-robotBtn.addEventListener('click', ()=> {
-    //if board already displayed for this option then do nothing
-    if (robotBtn.className == 'clicked') {
-        return;
-    }
-
-    robotBtn.className = 'clicked';
-    humanBtn.className = '';
-
-    Mode = 'AI';
-    initialiseGameCards(Mode);
-});
+        Mode = 'human';
+        initialiseGameCards(Mode);
+    });
+    
+    robotBtn.addEventListener('click', ()=> {
+        //if board already displayed for this option then do nothing
+        if (robotBtn.className == 'clicked') {
+            return;
+        }
+    
+        robotBtn.className = 'clicked';
+        humanBtn.className = '';
+    
+        Mode = 'AI';
+        initialiseGameCards(Mode);
+    });
+})();
 
 //functions
 function getLegalMoves() {
