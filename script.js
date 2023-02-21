@@ -20,7 +20,7 @@ humanBtn.addEventListener('click', ()=> {
     humanBtn.className = 'clicked';
     robotBtn.className = '';
 
-    initialiseGameCards();
+    initialiseGameCards('human');
 });
 
 robotBtn.addEventListener('click', ()=> {
@@ -32,7 +32,7 @@ robotBtn.addEventListener('click', ()=> {
     robotBtn.className = 'clicked';
     humanBtn.className = '';
 
-    initialiseGameCards();
+    initialiseGameCards('AI');
 });
 
 //functions
@@ -47,15 +47,21 @@ function getLegalMoves() {
     return legals;
 }
 
-function initialiseGameCards() {
+function initialiseGameCards(Mode) {
     //clear gameBoard
     while(gameBoard.firstChild) {
         gameBoard.removeChild(gameBoard.firstChild);
     }
 
     //draw gameBoard
-    for (let i = 0; i < 9; i++) {
-        gameBoard.appendChild(createCard());
+    if (Mode == 'human') {
+        for (let i = 0; i < 9; i++) {
+            gameBoard.appendChild(createCard());
+        }
+    } else {
+        for (let i = 0; i < 9; i++) {
+            gameBoard.appendChild(createCardAI());
+        }
     }
 
     //Add restart button
@@ -88,6 +94,43 @@ function createCard() {
             return;
         }
         currPlayer.switchPlayer();
+    });
+
+    return card;
+}
+
+function createCardAI() {
+    const card = document.createElement('div');
+    card.classList.add('gameCard');
+
+    card.addEventListener('click', (event)=> { //show current player's name on card
+        if (gameWon != -1) return; //prevent further play when game is won or drew
+
+        if (event.target.dataset.symbol) return; //prevent changing already played card
+            
+        card.classList.add(`${currPlayer.name}-card`);
+        card.setAttribute('data-symbol', currPlayer.name); //set custom attribute for card owner ie X or O.
+
+        round++;
+        if (currPlayer.checkWinCondition() != -1) { //prevent further play when game is won
+            declareWinner(currPlayer.checkWinCondition());
+            return;
+        }
+
+        currPlayer.switchPlayer();
+        //get best card for ai
+        let chosenMove = minimax(currPlayer, 0);
+        //play the chosen card
+        chosenMove.card.classList.add(`${currPlayer.name}-card`);
+        chosenMove.card.setAttribute('data-symbol', currPlayer.name);
+        //recheck for win
+        round++;
+        if (currPlayer.checkWinCondition() != -1) { //prevent further play when game is won
+            declareWinner(currPlayer.checkWinCondition());
+            return;
+        }
+        currPlayer.switchPlayer();
+        
     });
 
     return card;
