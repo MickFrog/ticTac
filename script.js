@@ -3,6 +3,7 @@ let currPlayer = null;
 let boardArray = [];
 let gameWon = -1;
 let round = 0;
+let Mode = '';
 
 //Acquire elements
 const humanBtn = document.getElementById('humanBtn');
@@ -20,7 +21,8 @@ humanBtn.addEventListener('click', ()=> {
     humanBtn.className = 'clicked';
     robotBtn.className = '';
 
-    initialiseGameCards('human');
+    Mode = 'human';
+    initialiseGameCards(Mode);
 });
 
 robotBtn.addEventListener('click', ()=> {
@@ -32,7 +34,8 @@ robotBtn.addEventListener('click', ()=> {
     robotBtn.className = 'clicked';
     humanBtn.className = '';
 
-    initialiseGameCards('AI');
+    Mode = 'AI';
+    initialiseGameCards(Mode);
 });
 
 //functions
@@ -47,14 +50,14 @@ function getLegalMoves() {
     return legals;
 }
 
-function initialiseGameCards(Mode) {
+function initialiseGameCards(currMode) {
     //clear gameBoard
     while(gameBoard.firstChild) {
         gameBoard.removeChild(gameBoard.firstChild);
     }
 
     //draw gameBoard
-    if (Mode == 'human') {
+    if (currMode == 'human') {
         for (let i = 0; i < 9; i++) {
             gameBoard.appendChild(createCard());
         }
@@ -117,23 +120,32 @@ function createCardAI() {
             return;
         }
 
-        currPlayer.switchPlayer();
-        //get best card for ai
-        let chosenMove = minimax(currPlayer, 0);
-        //play the chosen card
-        chosenMove.card.classList.add(`${currPlayer.name}-card`);
-        chosenMove.card.setAttribute('data-symbol', currPlayer.name);
-        //recheck for win
-        round++;
-        if (currPlayer.checkWinCondition() != -1) { //prevent further play when game is won
-            declareWinner(currPlayer.checkWinCondition());
-            return;
-        }
+        
+        (async () => {
+            await sleep(500 + (Math.random() * 500));
+            //get best card for ai
+            let chosenMove = minimax(currPlayer, 0);
+            //play the chosen card
+            chosenMove.card.classList.add(`${currPlayer.name}-card`);
+            chosenMove.card.setAttribute('data-symbol', currPlayer.name);
+            //recheck for win
+            round++;
+            if (currPlayer.checkWinCondition() != -1) { //prevent further play when game is won
+                declareWinner(currPlayer.checkWinCondition());
+                return;
+            }
+            currPlayer.switchPlayer();
+        })();
+        
         currPlayer.switchPlayer();
         
     });
 
     return card;
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function printMessage(message) {
@@ -152,7 +164,7 @@ function createRestartBtn() {
     RestartBtn.textContent = 'Restart';
 
     RestartBtn.addEventListener('click', () => {
-        initialiseGameCards();
+        initialiseGameCards(Mode);
     });
 
     contentSect.appendChild(RestartBtn);
