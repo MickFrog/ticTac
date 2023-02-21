@@ -123,25 +123,7 @@ function createCardAI() {
 
         currPlayer.switchPlayer();
         
-        (async () => {
-            aiThinking = true;
-            await sleep(500 + (Math.random() * 500));
-            //get best card for ai
-            let chosenMove = minimax(currPlayer, 0);
-            //play the chosen card
-            chosenMove.card.classList.add(`${currPlayer.name}-card`);
-            chosenMove.card.setAttribute('data-symbol', currPlayer.name);
-            //recheck for win
-            round++;
-            if (currPlayer.checkWinCondition() != -1) { //prevent further play when game is won
-                declareWinner(currPlayer.checkWinCondition());
-                return;
-            }
-            currPlayer.switchPlayer();
-            aiThinking = false;
-        })();
-        
-        
+        runAI();
     });
 
     return card;
@@ -149,6 +131,25 @@ function createCardAI() {
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function runAI() {
+    aiThinking = true;
+    await sleep(500 + (Math.random() * 500));
+    //get best card for ai
+    let chosenMove = minimax(currPlayer, 0);
+    //play the chosen card
+    chosenMove.card.classList.add(`${currPlayer.name}-card`);
+    chosenMove.card.setAttribute('data-symbol', currPlayer.name);
+    //recheck for win
+    round++;
+    if (currPlayer.checkWinCondition() != -1) { //prevent further play when game is won
+        declareWinner(currPlayer.checkWinCondition());
+        aiThinking = false;
+        return;
+    }
+    aiThinking = false;
+    currPlayer.switchPlayer();
 }
 
 function printMessage(message) {
