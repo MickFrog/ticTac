@@ -178,14 +178,22 @@ const Player = (playerName) => {
         }};
 };
 
-function minimax(tempPlayer) { //board used is global 
+function minimax(tempPlayer, depth) { //board used is global 
     let availSpots = getLegalMoves();
+    let opponent = Player('X');
+    depth++;
+
+    if (tempPlayer.name == 'O') {
+        opponent.name = 'X';
+    } else {
+        opponent.name = 'O';
+    }
 
     //check for terminal states
-    if (tempPlayer.name == 'X' && tempPlayer.checkWinCondition() == 1) {
-        return {score: -1};
-    } else if (tempPlayer.name == 'O' && tempPlayer.checkWinCondition() == 1) {
-        return {score: 1};
+    if (tempPlayer.name == 'O' && tempPlayer.checkWinCondition() == 1) {
+        return {score: 10-depth};
+    } else if (opponent.name == 'X' && opponent.checkWinCondition() == 1) {
+        return {score: depth-10};
     } else if (availSpots.length == 0) {
         return {score: 0};
     }
@@ -200,16 +208,8 @@ function minimax(tempPlayer) { //board used is global
         availSpots[i].dataset.symbol = tempPlayer.name; //set curr spot to taken by temp player
 
         //keep switching tempPlayer and recall minimax
-        if (tempPlayer.name == 'O') { //ai player
-            tempPlayer.name = 'X'; 
-            let result = minimax(tempPlayer);
-            move.score = result;
-
-        } else {
-            tempPlayer.name = 'O';
-            let result = minimax(tempPlayer);
-            move.score = result;
-        }
+        let result = minimax(opponent, depth);
+        move.score = result.score;
 
         //reset the symbol data attr to nothing
         delete availSpots[i].dataset.symbol;
@@ -218,15 +218,15 @@ function minimax(tempPlayer) { //board used is global
         allMoves.push(move);
     }
 
-    //evaluate bestmove; by getting actual card in page
-    let bestCard;
+    //evaluate bestmove
+    let bestMove;
 
     if (tempPlayer.name == 'O') {
         let bestScore = -10000;
         for (let i = 0; i < allMoves.length; i++) {
             if (allMoves[i].score > bestScore) {
                 bestScore = allMoves[i].score;
-                bestCard = allMoves[i].card; 
+                bestMove = i; 
             }
         }
 
@@ -235,10 +235,10 @@ function minimax(tempPlayer) { //board used is global
         for (let i = 0; i < allMoves.length; i++) {
             if (allMoves[i].score < bestScore) {
                 bestScore = allMoves[i].score;
-                bestCard = allMoves[i].card; 
+                bestMove = i; 
             }
         }
     }
 
-    return bestCard;
+    return allMoves[bestMove];
 }
